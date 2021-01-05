@@ -78,19 +78,20 @@ public class LoginActivity extends AppCompatActivity {
         DocumentReference df = fStore.collection("Users").document(uid);
         df.get().addOnSuccessListener(documentSnapshot -> {
 
-            if (documentSnapshot.get("userType").toString().equals("1")) {
+            if (Objects.requireNonNull(documentSnapshot.get("userType")).toString().equals("1")) {
                 //user
                 startActivity(new Intent(getApplicationContext(), UserActivity.class));
                 finish();
-            } else if (documentSnapshot.get("userType").toString().equals("2")) {
+            } else if (Objects.requireNonNull(documentSnapshot.get("userType")).toString().equals("2")) {
                 //pharmacist
                 startActivity(new Intent(getApplicationContext(), PharmacistActivity.class));
                 finish();
-            } else if (documentSnapshot.get("userType").toString().equals("3")) {
+            } else if (Objects.requireNonNull(documentSnapshot.get("userType")).toString().equals("3")) {
                 //admin
                 startActivity(new Intent(getApplicationContext(), AdminActivity.class));
                 finish();
             }
+            Toast.makeText(this, Objects.requireNonNull(documentSnapshot.get("userType")).toString(), Toast.LENGTH_SHORT).show();
         }).addOnFailureListener(e -> {
             Toast.makeText(LoginActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
         });
@@ -98,7 +99,7 @@ public class LoginActivity extends AppCompatActivity {
 
     private boolean isFieldValid(TextInputLayout txt) {
         boolean valid = false;
-        if (txt.getEditText().getText().toString().isEmpty()) {
+        if (Objects.requireNonNull(txt.getEditText()).getText().toString().isEmpty()) {
             txt.setError("Empty Field");
         } else {
             valid = true;
