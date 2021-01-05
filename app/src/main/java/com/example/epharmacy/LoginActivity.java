@@ -54,10 +54,7 @@ public class LoginActivity extends AppCompatActivity {
                         txtEmail.getEditText().getText().toString(),
                         txtPassword.getEditText().getText().toString())
                         .addOnSuccessListener(authResult -> {
-
                             userNavigator(authResult.getUser().getUid());
-
-
                         }).addOnFailureListener(e -> {
                     Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
                 });
